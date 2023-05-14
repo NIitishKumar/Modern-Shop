@@ -7,3 +7,15 @@
     margin: 10px 0;
   }
 }
+.sign-in-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.sign-in-button-container{
+  display: flex;
+}
+
+.sign-in-button-container :last-child{
+  margin-left: 10px;
+}
