@@ -10,7 +10,8 @@ function ProductCategory() {
     const [products, setproducts] = useState([]);
     useEffect(() => {
         Categories?.map(res => {
-            if (res.title === category) {
+            console.log(res.title)
+            if (res.title?.toLowerCase() === category.toLowerCase()) {
                 setproducts(res.items)
             }
         })

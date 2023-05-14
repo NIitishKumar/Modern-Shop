@@ -1,14 +1,15 @@
-import "./category-item.styles.scss";
+import { NavLink } from "react-router-dom";
+import { BackgroundImage, CategoryContainer, CategoryTitel, DirectoryCategoryContainer } from "./category-item.styles.jsx";
 
 export const CategoryItem = ({ category }) => {
-  const { imageUrl, title, id } = category;
+  const { imageUrl, title, id, route } = category;
   return (
-    <div key={id} className="directory-category-container">
-      <div className="background-image" style={{ backgroundImage: `url(${imageUrl})` }} />
-      <div className="category-body-container">
-        <h2>{title}</h2>
-        <p>Shop Now</p>
-      </div>
-    </div>
+    <DirectoryCategoryContainer key={id} >
+      <BackgroundImage imageUrl={imageUrl} />
+      <CategoryContainer>
+        <CategoryTitel>{title}</CategoryTitel>
+        <NavLink to={route}><p>Shop Now</p></NavLink>
+      </CategoryContainer>
+    </DirectoryCategoryContainer>
   );
 };
