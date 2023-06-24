@@ -5,10 +5,14 @@ import StyledButton from '../button/button.component'
 import CartItem from '../cart-item/cart-item'
 import FormButton from '../form-button/button.component'
 import "./cart-dropdown.scss"
+import { useSelector } from 'react-redux'
+import { cartItems } from '../../store/cart/cart.selector'
 
 function CartDropdown() {
 
-  const {items} = useContext(AddToCartContext)
+  // const {items} = useContext(AddToCartContext)
+  const items = useSelector(cartItems);
+  console.log(items);
 
   return (
     <div className='cart-dropdown-container'>

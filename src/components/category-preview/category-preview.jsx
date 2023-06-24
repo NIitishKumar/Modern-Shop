@@ -6,8 +6,7 @@ import { CategoryContainer, Link, Preview, Title } from './category-preview.styl
 
 function CategoryPreview({title, products}) {
     const history = useParams()
-    console.log(history)
-  return (
+    return (
     // <div className='category-preview-container'>
     <CategoryContainer>
         <Title>

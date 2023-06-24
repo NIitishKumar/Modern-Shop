@@ -1,12 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AddToCartContext } from '../../contexts/add-to-cart.context'
 import StyledButton from '../button/button.component'
-import FormButton from '../form-button/button.component'
 import "./product-card.styles.scss"
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCartAction, countCartItems } from '../../store/cart/cart.action'
+import { cartItems } from '../../store/cart/cart.selector'
 
 function ProductCard({product}) {
 
-    const {items, addItem, removeItem} = useContext(AddToCartContext)
+    const dispatch = useDispatch();
+    const items = useSelector(cartItems);
+
+    useEffect(() => {
+        dispatch(countCartItems(items))
+    }, [items])
 
     const  { name, price, imageUrl, id} = product
   return (
@@ -16,7 +23,7 @@ function ProductCard({product}) {
         <span className='name'>{name}</span>
         <span className='price'>{price}</span>
       </div>
-      <StyledButton buttonType='inverted' onClick={() => {addItem(product)}}>Add to card</StyledButton>
+      <StyledButton buttonType='inverted' onClick={() => {dispatch(addToCartAction(items, product))}}>Add to card</StyledButton>
     </div>
   )
 }

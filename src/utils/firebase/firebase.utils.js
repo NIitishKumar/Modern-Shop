@@ -21,6 +21,7 @@ import {
 } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics"
 import { async } from "q";
+import { getCategories } from "../../store/category/category.action";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDordO2fFSOa_XdOStA7yo2v2ciZTeYvZ0",
@@ -79,6 +80,7 @@ export const getCategoriesDoc = async () => {
   let item = await getDocs(x);
   const result = item.docs.map(doc => doc.data())
   console.log(item)
+  getCategories(result);
   return result
 }
 

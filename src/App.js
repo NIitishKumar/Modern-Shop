@@ -6,9 +6,28 @@ import SignUpForm from "../src/components/sign-up-form/sign-up-form.component";
 import Shop from "./routes/shop/shop.componenet";
 import Checkout from "./components/checkout/checkout.component";
 import CategoryPreview from "./components/category-preview/category-preview";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
+import { setCurrentUser } from "./store/user/user-action";
+import { onAuthStateChangeListner } from "./utils/firebase/firebase";
 
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangeListner((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>

@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ProductCard from '../../components/product-card/product-card';
-import { CategoriesContext } from '../../contexts/shop.context';
 import "./category.style.scss"
+import { useSelector } from 'react-redux';
+import { categorySelector } from '../../store/category/category.selector';
 
 function ProductCategory() {
     const { category } = useParams();
-    const { Categories }  = useContext(CategoriesContext);
+    const Categories = useSelector(categorySelector);
     const [products, setproducts] = useState([]);
     useEffect(() => {
         Categories?.map(res => {
@@ -15,9 +16,8 @@ function ProductCategory() {
                 setproducts(res.items)
             }
         })
-        // setproducts(Categories[products])
     }, [category, Categories])
-    console.log(Categories, products)
+    
   return (
     <div className='category-container'>
         {

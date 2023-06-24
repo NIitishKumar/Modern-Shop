@@ -12,11 +12,13 @@ import { signOutMethod } from '../../utils/firebase/firebase';
 import CartIcon from '../../components/cart-icon/cart-icon';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown';
 import { CartContext } from '../../contexts/cart.context';
+import { useSelector } from 'react-redux';
+import { isCartOpenSelector } from '../../store/cart/cart.selector';
 
 
 const Navigation = () => {
   const {currentUser} = useContext(userContext)
-  const {isCartOpen} = useContext(CartContext)
+  const isCartOpen = useSelector(isCartOpenSelector)
   console.log(currentUser)
 
   return (
