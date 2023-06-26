@@ -9,8 +9,8 @@ import CategoryPreview from "./components/category-preview/category-preview";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from "./store/user/user-action";
-import { onAuthStateChangeListner } from "./utils/firebase/firebase";
+import { checkUserSession, setCurrentUser } from "./store/user/user-action";
+import { getCurrentUser, onAuthStateChangeListner } from "./utils/firebase/firebase";
 
 
 const App = () => {
@@ -18,14 +18,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangeListner((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
+    dispatch(checkUserSession())
   }, []);
 
   return (

@@ -12,12 +12,15 @@ import { signOutMethod } from '../../utils/firebase/firebase';
 import CartIcon from '../../components/cart-icon/cart-icon';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown';
 import { CartContext } from '../../contexts/cart.context';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isCartOpenSelector } from '../../store/cart/cart.selector';
+import { user } from '../../store/user/user-selector';
+import { signOutAction } from '../../store/user/user-action';
 
 
 const Navigation = () => {
-  const {currentUser} = useContext(userContext)
+  const currentUser = useSelector(user);
+  const dispatch = useDispatch();
   const isCartOpen = useSelector(isCartOpenSelector)
   console.log(currentUser)
 
@@ -32,8 +35,8 @@ const Navigation = () => {
             SHOP
           </Link>
           {
-            currentUser ? (
-              <Link className='nav-link' to={"/auth"} onClick={signOutMethod} >Sign Out
+            currentUser?.id ? (
+              <Link className='nav-link' to={"/auth"} onClick={() => { dispatch(signOutAction())}} >Sign Out
               </Link>
             ): (
               <Link className='nav-link' to='/auth'>

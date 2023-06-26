@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import  { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
 import { async } from "q";
 
@@ -48,15 +48,28 @@ export const createUserDocFromAuth = async (user) => {
       }
       
   }
-  return userDocRef
+  return userSnapShot
 } 
 
-export const createAuthUserWithEmailAndPassword = async ({email, password}) => {
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  console.log("-----------------------", email, password)
   if(!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password)
 }
 
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if(!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password)
+}
+
 export const signOutMethod = async () => await signOut(auth)
 
 export const onAuthStateChangeListner = (callback) => onAuthStateChanged(auth, callback )
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, userAuth => {unsubscribe(); resolve(userAuth)}, reject);
+  })
+}

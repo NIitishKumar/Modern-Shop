@@ -7,15 +7,20 @@ import { useContext } from 'react'
 import { userContext } from '../../contexts/user.context'
 import { async } from 'q'
 import StyledButton from '../../components/button/button.component'
+import { useDispatch } from 'react-redux'
+import { signInEmail, signIngoogle } from '../../store/user/user-action'
 
 function SignIm() {
 
   const { setcurrentUser } = useContext(userContext)
 
+  const dispatch = useDispatch();
+
   const logGoogleUser = async () => {
-    const {user} = await signInWithGooglePopoUp()
-    const  userDocRef = await createUserDocFromAuth(user)
-    console.log(userDocRef)
+    // const {user} = await signInWithGooglePopoUp()
+    // const  userDocRef = await createUserDocFromAuth(user)
+    // console.log(userDocRef)
+    dispatch(signIngoogle());
   }
 
   const logGoogleRedirectUser = async () => {
@@ -41,8 +46,9 @@ function SignIm() {
 
   const handleLogin = async () => {
     try {
-      const {user} = await signInUser(email, password)
-      setcurrentUser({user})
+      // const {user} = await signInUser(email, password)
+      // setcurrentUser({user})
+      dispatch(signInEmail(formData))
 
     } catch (error) {
       switch (error.code) {

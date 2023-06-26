@@ -2,6 +2,7 @@ import CheckoutItem from "../checkout-item/checkout-item";
 import "./checkout.style.scss";
 import { useSelector } from "react-redux";
 import { cartItems, totolPrice } from "../../store/cart/cart.selector";
+import PaymentForm from "../payment-form/payment.component";
 
 function Checkout() {
   const items = useSelector(cartItems)
@@ -30,6 +31,7 @@ function Checkout() {
         return <CheckoutItem cartItem={res} />;
       })}
       <div className="total">TOTAL: ${finalPrice}</div>
+      <PaymentForm />
     </div>
   );
 }

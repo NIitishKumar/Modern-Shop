@@ -10,6 +10,8 @@ import { AddToCartProvide } from './contexts/add-to-cart.context';
 import {Provider} from "react-redux"
 import { persistor, store } from './store/store';
 import { PersistGate } from "redux-persist/es/integration/react"
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe.utils';
 
 const rootElement = document.getElementById('root');
 
@@ -24,7 +26,9 @@ render(
                   loading={<h1>Loading...</h1>}
                   persistor={persistor}
                 >
-                  <App />
+                  <Elements stripe = {stripePromise}>
+                    <App />
+                  </Elements>
                 </PersistGate>
               </AddToCartProvide>
             </CartProvider>
